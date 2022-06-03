@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+
+int Floor_of_number(int sorted_arr[], int n, int number){
+/*If the number of which we need to find the floor is lesser than the first element then according to the definition of floor function its value can't be found.*/
+   if (number < sorted_arr[0])
+   {   
+      cout<<"Floor of this value can't be found";
+      return -1;
+   }
+/*If number of which we need to find the floor is greater than the greatest element in the array then that greatest element will be the floor of that number.*/ 
+   if (number >= sorted_arr[n - 1])
+      return sorted_arr[n-1];
+//Traversing the loop to find floor
+   for (int i = 0; i < n; i++)
+      if (sorted_arr[i] > number)
+         return sorted_arr[i - 1];
+}
+int main(){
+   int n;
+   cout<<"Enter the size of the array";
+   cin>>n;
+   int sorted_arr[n];
+   for(int i=0;i<n;i++)
+   {
+   cout<<"Enter the"<<i+1<<"th value in the array";
+   cin>>sorted_arr[i];
+   }
+   int number;
+   cout<<"Enter the number of which we have to fin the floor of";
+   cin>>number;
+   int floor = Floor_of_number(sorted_arr, n,number);
+   if (floor== -1)
+      cout<<"The floor of "<<number<<" doesn't exist in the array";
+   else
+      cout<<"The floor of "<<number<<" in the array is "<<floor;
+   return 0;
+}
+
+
+

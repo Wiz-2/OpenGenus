@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+int Floor_of_Number(int sorted_arr[], int low, int high, int number){
+/*If number is more than the last element then, floor will be value at last index.*/
+   if (number >= sorted_arr[high])
+      return sorted_arr[high];
+   int mid = (low + high) / 2;
+ //If mid is equal to the number then, that value will be our floor.
+   if (sorted_arr[mid] == number)
+      return sorted_arr[mid];
+ /*If number is less than the value at mid index, then, update the high to mid-1 and recur the function one more time.*/ 
+   if (number < sorted_arr[mid])
+      return Floor_of_Number(sorted_arr, low, mid - 1, number);
+/* If number is more than the value at mid index, then, update the low to mid+1 and recur the function one more time.*/   
+   if(number>sorted_arr[mid])
+      return Floor_of_Number(sorted_arr, mid + 1, high, number);
+}
+int main(){
+   int arr[] = {1,2,3,4,5,7,8,11};
+   int n = sizeof(arr) / sizeof(arr[0]);
+   int  number = 9;
+   int floor = Floor_of_Number(arr, 0, n - 1, number );
+   if (floor == -1)
+      cout<<"The floor of "<<number<<" doesn't exist in the array";
+   else
+      cout<<"The floor of "<<number<<" in the array is "<<floor;
+   return 0;
+}

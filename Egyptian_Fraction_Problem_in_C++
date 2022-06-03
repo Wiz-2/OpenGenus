@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+ 
+void Egyptian_fraction(int numerator, int denominator)
+{
+
+    // If denominator divides numerator then that number is not a fraction and hence, Egyptian Fraction is not possible.
+    if (numerator%denominator == 0)
+    {
+        cout<<numerator/denominator<<" Egyptian fraction of an integer is not possible";
+    }
+ 
+    // when numerators and denominators are zero.
+    else if (denominator == 0 || numerator == 0)
+    {
+    	cout<<"No representation possible as either the numerator or the denominaor is zero, while egyptian fraction can only be calculated for fractions.";
+    }
+    // If numerator less than denominator and denominator%numerator=0 , then simple division will result in the unit fraction.
+    else if (denominator%numerator == 0)
+    {
+        cout<<"1/"<<denominator/numerator;
+    }
+ 
+  
+    // When Numerator > Denominator
+    else if (numerator > denominator)
+    {
+        cout<<numerator/denominator<<" + ";
+        Egyptian_fraction(numerator%denominator, denominator);
+        
+    }
+ 
+    // If given proper values i.e. denominator > numerator and denominator%numerator is non-zero,then Find ceiling of denominator/numerator, and recursively 
+    //call the Egyptian_fraction for the remaining part.
+    else
+    {
+    int ceiling_value;
+    ceiling_value = (int)denominator/numerator + 1; //This will return the celing values as denominator/numerator will be an integer.
+    cout<<"1/"<<ceiling_value<<" + ";
+    //Remaining fraction= Numerator/ Denominator- 1/ ceiling_value = (Numerator*ceiling_value - Denominator)/Denominator*ceiling_value.
+    Egyptian_fraction(numerator*ceiling_value-denominator, denominator*ceiling_value);
+    }
+}
+ 
+int main()
+{
+    int numerator, denominator;
+    //Entering the values for our fraction.
+    cout<<"Enter the numerator value for the fraction";
+    cin>>numerator;
+    cout<<"Enter the denominator value for the fraction";
+    cin>>denominator;
+    cout<<"Egyptian Fraction Representation of "<<numerator<<"/"<<denominator<<" is\n ";
+    // Calling the function for the representtion of our fraction.
+    Egyptian_fraction(numerator, denominator);
+    return 0;
+}

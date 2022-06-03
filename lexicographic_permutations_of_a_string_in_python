@@ -1,0 +1,38 @@
+# permuted_array is our list to store the permutations in lexicographic order
+global permuted_array 
+permuted_array=[]
+#count is our array to store the index for permutations of various length. 
+global count
+#function to calculate the permutations.
+def permute(remaining):
+    if len(remaining)==1:
+        return remaining
+    for i in range(0,len(remaining)):
+    #We splice the strings to get substrings which further will be reduced.
+        string=remaining[0:i]+remaining[i+1:len(remaining)]
+    #Recurring the spliced string to generate shorter strings.
+        permuted=permute(string)
+    # Base case.
+        if(len(permuted)==1):
+    # Concatenate the strings 
+            permuted_array.append(remaining[i]+permuted)
+        else:
+            j=len(permuted_array[-1])#To find the length of the shortest length string in the permuted_array at any given time as modifications will be done to only those strings.
+            for k in permuted_array:
+                if(len(k)!=j):
+                    continue
+                else:
+     #Concatenating the required substrings.
+                    permuted_array[count[len(remaining)-1]]=remaining[i]+permuted_array[count[len(remaining)-1]]
+                count[len(remaining)-1]+=1
+    return permuted_array
+test_string=input("Enter the string")
+#sorting the input string, as only then we will be able to find out the lexicographic order using this algp, otherwise it will just print permutations irrespectove of lexicographic order.
+string = ''.join(sorted(test_string))
+count=[len(string)]
+for i in range(0,len(string)):
+    count.append(0)
+permute(string)
+print(permuted_array)
+
+

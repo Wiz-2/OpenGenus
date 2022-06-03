@@ -1,0 +1,85 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#define size 5
+
+struct node
+{
+int data;
+struct node *next;
+};
+
+struct node *point[size];
+
+void make_pointers_NULL()
+{
+    int i;
+    for(i = 0; i < size; i++)
+        point[i] = NULL;
+}
+void insertion(int value)
+{
+    //Allocating memory for node.
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+
+
+    //Calculating hash key using hash function.
+    int key;
+    key = value % size;
+
+    //checking if point[key] is not pointing anywhere.
+    if(point[key] == NULL)
+    {    
+        point[key] = newNode;
+    }
+
+    //Separate Collision resolution implementation.
+    else
+    {
+        //Adding node at the front.
+        struct node *temp = point[key];
+        point[key]=newNode;
+
+        newNode->next = temp;
+    }
+}
+
+void print()
+{
+    int i;
+
+    for(i = 0; i < size; i++)
+    {
+        struct node *temp = point[i];
+        printf("point[%d]-->",i);
+        while(temp)
+        {
+            printf("%d -->",temp->data);
+            temp = temp->next;
+        }
+        printf("NULL\n");
+    }
+}
+
+int main()
+{
+    //assigning every element of array of pointers to NULL.
+    make_pointers_NULL();
+    int i=0;
+    while(i==0)
+    {
+        int value;
+        scanf("%d",&value);
+        insertion(value);
+        printf("If you want to enter another value then enter 0 else
+        enter 1");
+        scanf("%d",&i);
+    }
+
+    print();
+
+    return 0;
+}

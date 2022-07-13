@@ -1,0 +1,21 @@
+import math
+a=5
+string= input("Enter the string")
+sorted_string = ''.join(sorted(string))
+length=len(string)
+i=0
+j=0
+rank=0
+array=[]
+while(j!=length-1):
+    if(string[j]!=sorted_string[i]):
+        if(sorted_string[i] in array):
+            i+=1
+            continue
+        rank+=math.factorial(length-j-1)
+        i+=1
+    else:
+        array.append(string[j])
+        j+=1
+        i=0
+print("Lexicographic rank of the string is:",rank+1)

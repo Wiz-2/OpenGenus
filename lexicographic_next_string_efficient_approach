@@ -1,0 +1,43 @@
+p=input("Enter the string:")
+a=len(p)
+i=0
+#Position variable captures the position i for which string[i]<string[i+1]
+position=0
+while(i<a-1):
+    if(p[i]<p[i+1]):
+        position=i
+    i+=1
+j=position+1
+#min is used to find the ceiling of string[i]
+min=100
+#swap_position stores the position of ceiling of string[i]
+global swap_position
+swap_position=0
+#Finding swap_position
+while(j<a):
+    if(ord(p[j])-ord(p[position])<min and (ord(p[j])-ord(p[position]))!=0):
+        min=ord(p[j])-ord(p[position])
+        swap_position=j
+    j+=1
+#new array stores the array after exchanging string[i] with its ceiling.
+new=[]
+count=0
+#swapping string[position] with string[swap_position]
+while(count<a):
+    if(count==position):
+        new.append(p[swap_position])
+    elif(count==swap_position):
+        new.append(p[position])
+    else:
+        new.append(p[count])
+    count+=1
+
+#Sorting the portion of the array from i+1 to end of the list in new
+new[position+1:a]=sorted(new[position+1:a])
+q=0
+#m stores the lexicographic next string
+m=''
+while(q<a):
+   m+=new[q]
+   q+=1
+print("Lexicographic next string is: ",m)
